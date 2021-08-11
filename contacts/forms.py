@@ -7,6 +7,7 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = [
             'name',
+            'birthday',
             'address_1',
             'address_2',
             'city',
