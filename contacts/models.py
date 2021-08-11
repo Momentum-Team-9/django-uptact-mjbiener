@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.db.models.fields import DateTimeField
 from localflavor.us.models import USStateField, USZipCodeField
 
 
@@ -21,5 +22,9 @@ class Contact(models.Model):
     state = USStateField(null=True, blank=True)
     zip_code = USZipCodeField(null=True, blank=True)
 
+class Note(models.Model):
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name="notes")
+    text = models.TextField(max_length=2000)
+    created = DateTimeField(auto_now_add=True)
 
 
