@@ -46,9 +46,9 @@
       </p> -->
       
       <h3>Notes:</h3>
-      <p><a href="{% url 'add_note' %}">Add New Note</a></p>
+      <p><a href="{% url 'add_note' pk=contact.pk %}">Add New Note</a></p>
       </br>
-      {% for note in notes reversed%}
+      {% for note in notes %}
       <p>{{ note.text }}</p>
       <p>Created on: {{ note.created }}</p>
       <p>Created by: {{ note.contact }}</p>
