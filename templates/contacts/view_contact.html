@@ -45,8 +45,8 @@
       </p>
       
 
-      {% for note in contact.note.all %}
-      <li>{{ contact.note.contact }}</li>
+      {% for note in contact.notes.all %}
+      <li>{{ note.contact }}</li>
       <li>{{ note.text }}</li>
       <li>{{ note.created }}</li>
       {% endfor %}
