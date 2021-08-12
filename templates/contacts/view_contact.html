@@ -1,5 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Contact</h1>
-{% endblock %}
+<div class="flex flex-wrap">
+
+    <div class="w-33 pa3">
+      <h2>{{ contact.name }}</h2>
+  
+      {% if contact.birthday %}
+      <div class="flex">
+        <div class="pr2"><i class="icofont-calendar"></i></div>
+        <div>{{ contact.birthday }}</div>
+      </div>
+      {% endif %}
+  
+      <div class="flex">
+        <div class="pr2"><i class="icofont-location-pin"></i></div>
+        <div>
+          {{ contact.address_1 }}<br />
+          {% if contact.address_2 %}
+            {{ contact.address_2 }}<br />
+          {% endif %}
+          {{ contact.city }}, {{ contact.state }} {{ contact.zip_code }}
+        </div>
+      </div>
+  
+      {% if contact.phone_number %}
+      <div class="flex">
+        <div class="pr2"><i class="icofont-phone"></i></div>
+        <div>{{ contact.phone_number }}</div>
+      </div>
+      {% endif %}
+  
+      {% if contact.email %}
+      <div class="flex">
+        <div class="pr2"><i class="icofont-ui-email"></i></div>
+        <div>{{ contact.email }}</div>
+      </div>
+      {% endif %}
+      
+      
+      <p>
+        <a href="{% url 'edit_contact' pk=contact.pk %}">Edit Contact</a><br>
+        <a class="red" href="{% url 'delete_contact' pk=contact.pk %}">Delete Contact</a> 
+      </p>
+      
+
+      {% for note in contact.note.all %}
+      <li>{{ contact.note.contact }}</li>
+      <li>{{ note.text }}</li>
+      <li>{{ note.created }}</li>
+      {% endfor %}
+    </div>
+  </div>  
+{% endblock %}  

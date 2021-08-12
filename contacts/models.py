@@ -27,4 +27,7 @@ class Note(models.Model):
     text = models.TextField(max_length=2000)
     created = DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.contact} | {self.text} | {self.created}"
+
 
