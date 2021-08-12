@@ -37,18 +37,20 @@
         <div>{{ contact.email }}</div>
       </div>
       {% endif %}
+      </br>
+      </br>
       
-      
-      <p>
+      <!-- <p>
         <a href="{% url 'edit_contact' pk=contact.pk %}">Edit Contact</a><br>
         <a class="red" href="{% url 'delete_contact' pk=contact.pk %}">Delete Contact</a> 
-      </p>
+      </p> -->
       
-
-      {% for note in contact.notes.all %}
-      <li>{{ note.contact }}</li>
-      <li>{{ note.text }}</li>
-      <li>{{ note.created }}</li>
+      <h3>Notes:</h3>
+      {% for note in notes %}
+      <p>{{ note.text }}</p>
+      <p>Created on: {{ note.created }}</p>
+      <p>Created by: {{ note.contact }}</p>
+      </br>
       {% endfor %}
     </div>
   </div>  
