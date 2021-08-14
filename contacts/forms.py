@@ -29,7 +29,4 @@ class NoteForm(forms.ModelForm):
 class NewNoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = [
-            'contact',
-            'text',
-        ]
+        fields = ['text']

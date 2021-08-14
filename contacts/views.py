@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contact, Note
 from .forms import ContactForm, NoteForm, NewNoteForm
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -48,8 +49,10 @@ def delete_contact(request, pk):
 def view_contact(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
     notes = contact.notes.all()
+    # form = NewNoteForm()
     return render(request, "contacts/view_contact.html",
-                  {"contact": contact, "notes": notes})
+                  {"contact": contact, "notes": notes,}) 
+                  #"form": form })
 
 def view_notes(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
@@ -60,25 +63,30 @@ def view_notes(request, pk):
 
 def edit_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
+    contact = note.contact
     if request.method == 'GET':
         form = NoteForm(instance=note)
     else:
         form = NoteForm(data=request.POST, instance=note)
         if form.is_valid():
+            note.contact = contact
             form.save()
-            return redirect(to='list_contacts')
+            return redirect(to='view_contact', pk=contact.pk)
 
     return render(request, "contacts/edit_note.html", {
         "form": form, "note": note})
 
 
-def add_note(request):
+def add_note(request, contact_pk):
+    contact = get_object_or_404(Contact, pk=contact_pk)
     if request.method == 'GET':
         form = NewNoteForm()
     else:
-        form = NewNoteForm(data=request.POST)
+        form = NewNoteForm(request.POST)
         if form.is_valid():
+            note = form.save(commit=False)
+            note.contact = contact
             form.save()
-            return redirect(to='list_contacts')
+            return redirect(to='view_contact', pk=contact.pk)
 
-    return render(request, "contacts/add_note.html", {"form": form})
+    return render(request, "contacts/add_note.html", {"form": form, "contact": contact})
