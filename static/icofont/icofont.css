@@ -33,6 +33,11 @@ url("./fonts/icofont.woff") format("woff");
   -webkit-font-smoothing: antialiased;
 }
 
+.icofont-calendar:before
+{
+  content: "\eecd";
+}
+
 .icofont-ui-email:before
 {
   content: "\ec56";
